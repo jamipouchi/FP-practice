@@ -11,7 +11,8 @@ var wordPattern = function (pattern, w) {
     //console.log(sWords, pattern);
     var s = sWords[0];
     //console.log(p, s);
-    return compareArrays((pattern.split("").map(function (c) { return c === p; })), (sWords.map(function (w) { return w === s; }))) && wordPattern((pattern.replaceAll(p, "")), (sWords.filter(function (w) { return w !== s; })).join(" "));
+    return compareArrays((pattern.split("").map(function (c) { return c === p; })), (sWords.map(function (w) { return w === s; }))) &&
+        wordPattern((pattern.replaceAll(p, "")), (sWords.filter(function (w) { return w !== s; })).join(" "));
 };
 console.log(wordPattern("abba", "dog cat cat dog"));
 console.log(wordPattern("abba", "dog cat cat fish"));

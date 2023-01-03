@@ -1,6 +1,6 @@
 const compareArrays = <T>(a: T[], b: T[]) => a.length === b.length && a.every((element: T, index: number) => element === b[index]);
 
-var wordPattern = function (pattern: string, w: string): boolean {
+const wordPattern = (pattern: string, w: string): boolean => {
     if (pattern == "" && w == "") {
         return true;
     }
@@ -8,13 +8,18 @@ var wordPattern = function (pattern: string, w: string): boolean {
         return false;
     }
 
-    let p: string = pattern.charAt(0);
-    let sWords: string[] = w.split(" ");
+    const p: string = pattern.charAt(0);
+    const sWords: string[] = w.split(" ");
     //console.log(sWords, pattern);
-    let s: string = sWords[0];
+    const s: string = sWords[0];
     //console.log(p, s);
 
-    return compareArrays((pattern.split("").map(c => c === p)), (sWords.map(w => w === s))) && wordPattern((pattern.replaceAll(p, "")), (sWords.filter(w => w !== s)).join(" "))
+    return compareArrays(
+        (pattern.split("").map(c => c === p)),
+        (sWords.map(w => w === s))) &&
+        wordPattern(
+            (pattern.replaceAll(p, "")),
+            (sWords.filter(w => w !== s)).join(" "));
 };
 
 console.log(wordPattern("abba", "dog cat cat dog"));
