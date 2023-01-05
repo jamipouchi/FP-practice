@@ -1,7 +1,8 @@
 detectCapital :: String -> Bool
-detectCapital = or . (\x -> map ($ x) [all uppercase, all lowercase, (&&) . (uppercase . head) <*> (all lowercase . tail)])
-
--- I bet the lambda can be done better. There exists a combinator lens (??) which does that, but I don't know how to build it point free.
+--detectCapital = or . (<*>) [all uppercase, all lowercase, (&&) . (uppercase . head) <*> (all lowercase . tail)] . (: [])
+-- No need for lambda :)
+-- Thought the better bersion is
+detectCapital = (||) . all uppercase <*> (all lowercase . tail)
 
 uppercase :: Char -> Bool
 uppercase = (&&) . (<= 'Z') <*> (>= 'A')
