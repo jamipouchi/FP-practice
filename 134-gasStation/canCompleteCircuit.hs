@@ -3,9 +3,7 @@ canCompleteCircuit gas cost = do
   let diff = zipWith (-) gas cost
   let n = length diff
   if any (>= 0) $ scanl1 (+) diff
-    then do
-      let twice = diff ++ diff
-      head $ filter (\x -> isValidCircuit $ slice x (x + n) twice) [0 .. n -1]
+    then head $ filter (\x -> isValidCircuit $ drop x diff) [0 .. n -1]
     else (-1)
 
 slice :: Int -> Int -> [a] -> [a]
