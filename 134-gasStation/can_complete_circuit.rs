@@ -34,6 +34,9 @@ mod tests {
     }
     #[test]
     fn ex3() {
-        assert_eq!(can_complete_circuit(vec![5, 1, 2, 3, 4], vec![4, 4, 1, 5, 1]), 4)
+        assert_eq!(
+            can_complete_circuit(vec![5, 1, 2, 3, 4], vec![4, 4, 1, 5, 1]),
+            4
+        )
     }
 }
