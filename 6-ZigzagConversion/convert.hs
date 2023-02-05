@@ -1,0 +1,1 @@
+convert :: String -> Int -> String
