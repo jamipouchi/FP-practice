@@ -2,7 +2,7 @@ fn shuffle(nums: Vec<i32>, n: i32) -> Vec<i32> {
     let (left, right) = nums.split_at(n as usize);
     left.into_iter()
         .zip(right.into_iter())
-        .flat_map(|(l, r)| [*l, *r])
+        .flat_map(|(&l, &r)| [l, r])
         .collect()
 }
 
