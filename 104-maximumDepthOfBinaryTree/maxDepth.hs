@@ -1,8 +1,8 @@
-data TreeNode = TreeNode Int TreeNode TreeNode | Null
+data TreeNode = TreeNode Int (Maybe TreeNode) (Maybe TreeNode)
 
 new :: Int -> TreeNode
-new x = TreeNode x Null Null
+new x = TreeNode x Nothing Nothing
 
-maxDepth :: TreeNode -> Int
-maxDepth Null = 0
-maxDepth (TreeNode _ l r) = 1 + max (maxDepth l) (maxDepth r)
+maxDepth :: Maybe TreeNode -> Int
+maxDepth Nothing = 0
+maxDepth (Just (TreeNode _ l r)) = 1 + max (maxDepth l) (maxDepth r)
