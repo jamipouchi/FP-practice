@@ -1,8 +1,9 @@
+"use strict";
 function numRescueBoats(people, limit) {
-    people.sort(function (a, b) { return a - b; });
-    var numBoats = 0;
-    var bigPtr = people.length - 1;
-    var smallPtr = 0;
+    people.sort((a, b) => a - b);
+    let numBoats = 0;
+    let bigPtr = people.length - 1;
+    let smallPtr = 0;
     while (smallPtr <= bigPtr) {
         if (people[bigPtr] + people[smallPtr] <= limit) {
             smallPtr++;

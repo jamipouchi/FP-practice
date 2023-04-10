@@ -1,38 +1,27 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
-var minimumRounds = function (nums) { return pack(nums.sort()).reduce(countAndSumIfPossible, 0); };
-//.map(count).reduce(sumIfPossible)
+"use strict";
+const minimumRounds_fp_eff = (nums) => pack(nums.sort()).reduce(countAndSumIfPossible, 0);
+const minimumRounds_fp_clean = (nums) => pack(nums.sort()).map(count).reduce(sumIfPossible);
 // here T is constrained to be comparable (===), yet I don't know how to enforce that.
-var pack = function (elem) { return rmHelper(elem.reduce(function (prev, curr) {
-    var lastIndex = prev.length - 1;
+const pack = (elem) => rmHelper(elem.reduce((prev, curr) => {
+    const lastIndex = prev.length - 1;
     if (prev[lastIndex][prev[lastIndex].length - 1] === curr) {
-        var tilLast = prev.slice(0, lastIndex);
-        var last = (prev.slice(lastIndex))[0];
-        return __spreadArray(__spreadArray([], tilLast, true), [__spreadArray(__spreadArray([], last, true), [curr], false)], false);
+        const tilLast = prev.slice(0, lastIndex);
+        const last = (prev.slice(lastIndex))[0];
+        return [...tilLast, [...last, curr]];
     }
     else {
-        return __spreadArray(__spreadArray([], prev, true), [[curr]], false);
+        return [...prev, [curr]];
     }
-}, [[elem[0]]])); };
-var rmHelper = function (_a) {
-    var first = _a[0], rest = _a.slice(1);
-    return __spreadArray([first.slice(1)], rest, true);
-};
-var count = function (elems) {
-    var mida = elems.length;
+}, [[elem[0]]]));
+const rmHelper = ([first, ...rest]) => [first.slice(1), ...rest];
+const count = (elems) => {
+    const mida = elems.length;
     if (mida < 2)
         return -1;
     else
         return Math.floor((mida + 2) / 3);
 };
-var sumIfPossible = function (a, b) {
+const sumIfPossible = (a, b) => {
     if (a === -1 || b === -1)
         return -1;
     else
@@ -40,8 +29,8 @@ var sumIfPossible = function (a, b) {
 };
 // sadly it gives tl :O
 // I can unite map & reduce :(
-var countAndSumIfPossible = function (prev, rightElems) {
-    var mida = rightElems.length;
+const countAndSumIfPossible = (prev, rightElems) => {
+    const mida = rightElems.length;
     if (mida < 2)
         return -1;
     else
@@ -49,3 +38,26 @@ var countAndSumIfPossible = function (prev, rightElems) {
 };
 // also tl.
 // It is also possible to unite pack and reduce, but it's too fkn ugly. I am not doing that
+// Might have been a good idea to choose a compiled language to try fp :)
+// For those curious of a correct implementation (imperative)
+// Note that I am not a ts/js expert. I am good at c++, and I'm coding what I'd do there.
+const minimumRounds_Imp = (tasks) => {
+    const numTasks = orderTasks(tasks);
+    let minimumRounds = 0;
+    for (const [_, val] of numTasks) {
+        if (val < 2)
+            return -1; // ending before
+        else
+            minimumRounds += Math.floor((val + 2) / 3);
+    }
+    return minimumRounds;
+};
+const orderTasks = (tasks) => {
+    let numTasks = new Map();
+    tasks.forEach((task) => {
+        // I dislike how typescript makes me put that bang.
+        const taskNum = numTasks.has(task) ? numTasks.get(task) : 0;
+        numTasks.set(task, taskNum + 1);
+    });
+    return numTasks;
+};

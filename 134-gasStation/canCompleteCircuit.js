@@ -1,23 +1,21 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
+"use strict";
+const canCompleteCircuit = (gas, cost) => {
+    if (gas.reduce((sum, curr) => sum + curr) >= cost.reduce((sum, curr) => sum + curr)) {
+        const lastIdx = gas
+            .map((gasValue, idx) => gasValue - cost[idx])
+            .reduce((values, currValue) => {
+            const lastValue = values[values.length - 1];
+            return lastValue < 0
+                ? [...values, currValue]
+                : [...values, lastValue + currValue];
+        }, [0])
+            .reverse()
+            .findIndex((val) => val < 0);
+        return lastIdx == -1 ? 0 : gas.length - lastIdx;
     }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
-var canCompleteCircuit = function (gas, cost) {
-    return gas.reduce(function (sum, curr) { return sum + curr; }) >= cost.reduce(function (sum, curr) { return sum + curr; })
-        ? gas.length - gas
-            .map(function (gasValue, idx) { return gasValue - cost[idx]; })
-            .reduce(function (values, currValue) {
-                var lastValue = values[values.length - 1];
-                return lastValue < 0
-                    ? __spreadArray(__spreadArray([], values, true), [0], false) : __spreadArray(__spreadArray([], values, true), [lastValue + currValue], false);
-            }, [0])
-            .findLastIndex(function (val) { return val < 0; })
-        : -1;
+    else {
+        return -1;
+    }
 };
 console.log(canCompleteCircuit([1, 2, 3, 4, 5], [3, 4, 5, 1, 2]), " should be 3");
 console.log(canCompleteCircuit([2, 3, 4], [3, 4, 3]), "should be -1");
