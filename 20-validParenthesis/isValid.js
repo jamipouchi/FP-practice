@@ -24,6 +24,7 @@ function isValid(s: string): boolean {
 }
 */
 // functional, with recursion
+// This actually performs better than the imperative version
 function isValid(s) {
     if (s.length == 0) {
         return true;
@@ -32,12 +33,10 @@ function isValid(s) {
         return false;
     }
     return solveFrom(s, 0) == s.length;
-    //return false;
 }
 function solveFrom(s, ptr) {
-    console.log(ptr);
     if (ptr >= s.length) {
-        return -1; // error. think about this
+        return -1; // error.
     }
     const initial = s[ptr];
     if (initial === '(' || initial === '[' || initial === '{') {
