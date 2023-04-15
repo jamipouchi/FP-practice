@@ -18,7 +18,7 @@ function longestPalindromeSubseq(s) {
     return dp[n - 1];
 }
 ;
-/* x is base case l = 1
+/* x is base case l = 1, empty spaces contain 0
 x7890
  x456
   x23
