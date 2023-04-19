@@ -8,26 +8,23 @@ function maxValueOfCoins(piles, k) {
     // Initialize the memoization array
     const n = piles.length;
     const C = Array(n).fill(0).map(() => Array(k + 1).fill(0));
-    // Initial column
-    const cumSum = piles.map((pile) => pile.reduce((acc, curr) => {
-        acc.push(acc[acc.length - 1] + curr);
-        return acc;
-    }, [0]));
-    let coins = 0;
-    while (coins < piles[0].length) {
-        C[0][coins] = piles[0][coins];
-        coins++;
-    }
-    while (coins <= k) {
-        C[0][coins] = piles[0][piles[0].length - 1];
-        coins++;
+    // We inittialize C[col][coins] with the cumSum of the piles.
+    for (let col = 0; col < piles.length; col++) {
+        C[col][0] = 0;
+        let coins;
+        for (coins = 1; coins <= Math.min(piles[col].length, k); coins++) {
+            C[col][coins] = piles[col][coins - 1] + C[col][coins - 1];
+        }
+        while (coins <= k) {
+            C[col][coins] = C[col][coins - 1];
+            coins++;
+        }
     }
     // Now we fill the memoization array.
     for (let col = 1; col < piles.length; col++) {
         for (let coins = k; coins >= 1; coins--) {
-            C[col][coins] = C[col - 1][coins];
-            for (let coinsFromCurrCol = 1; coinsFromCurrCol <= Math.min(coins, piles[col].length - 1); coinsFromCurrCol++) {
-                C[col][coins] = Math.max(C[col][coins], C[col - 1][coins - coinsFromCurrCol] + cumSum[col][coinsFromCurrCol]);
+            for (let coinsFromCurrCol = 0; coinsFromCurrCol < coins; coinsFromCurrCol++) {
+                C[col][coins] = Math.max(C[col][coins], C[col - 1][coins - coinsFromCurrCol] + C[col][coinsFromCurrCol]);
             }
         }
     }
