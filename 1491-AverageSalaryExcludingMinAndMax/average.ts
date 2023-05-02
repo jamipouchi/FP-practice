@@ -1,10 +1,10 @@
 // Functional approach
-function average(salary: number[]): number {
+/* function average(salary: number[]): number {
     return salary
         .sort((a, b) => a - b)
         .slice(1, - 1)
         .reduce((a, b) => a + b) / (salary.length - 2);
-};
+}; */
 
 // Imperative approach
 function average(salary: number[]): number {

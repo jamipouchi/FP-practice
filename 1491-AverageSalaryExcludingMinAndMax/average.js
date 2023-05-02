@@ -1,12 +1,11 @@
 "use strict";
 // Functional approach
-function average(salary) {
+/* function average(salary: number[]): number {
     return salary
         .sort((a, b) => a - b)
-        .slice(1, -1)
+        .slice(1, - 1)
         .reduce((a, b) => a + b) / (salary.length - 2);
-}
-;
+}; */
 // Imperative approach
 function average(salary) {
     let min = salary[0];
