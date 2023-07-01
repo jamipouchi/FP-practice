@@ -1,5 +1,5 @@
 
-class TreeNode {
+/* class TreeNode {
     val: number
     left: TreeNode | null
     right: TreeNode | null
@@ -8,7 +8,7 @@ class TreeNode {
         this.left = (left === undefined ? null : left)
         this.right = (right === undefined ? null : right)
     }
-}
+} */
 
 enum Direction {
     Left,
