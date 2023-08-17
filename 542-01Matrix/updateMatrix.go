@@ -1,4 +1,4 @@
-// This solution was my original thought, I think it's much cleaner than the multi-dfs approach.
+// This solution was my original thought, I think it's much cleaner than the multi-bfs approach.
 // Implementing it is dull though, (lot of checking idx are right), and it is inspired by another solution.
 func updateMatrix(mat [][]int) [][]int {
 
