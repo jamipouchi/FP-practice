@@ -1,0 +1,6 @@
+[package]
+name = "subarrays_div_by_k"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
