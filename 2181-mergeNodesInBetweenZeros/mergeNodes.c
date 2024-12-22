@@ -35,6 +35,7 @@ struct ListNode *mergeNodes(struct ListNode *head) {
     if (head->val == 0) {
       next->next = malloc(sizeof(struct ListNode));
       next->next->val = cum;
+      next->next->next = NULL;
       cum = 0;
       next = next->next;
     } else {

@@ -3,8 +3,8 @@
 
 // Not reallocing nor freeing address, making it responsability of the caller.
 char *defangIPaddr(char *address) {
-  size_t resultSize = sizeof(char) * (strlen(address) + 6);
-  char *result = malloc(resultSize);
+  size_t resultSize = strlen(address) + 6;
+  char *result = malloc(sizeof(char) * (resultSize + 1));
   int j = 0;
   for (int i = 0; j < resultSize; i++) {
       if (address[i] == '.') {
@@ -15,5 +15,6 @@ char *defangIPaddr(char *address) {
           result[j++] = address[i];
       }
   }
+  result[resultSize] = '\0';
   return result;
 }
