@@ -1,3 +1,5 @@
+#include "../uthash-master/src/uthash.h"
+
 /**
  * I was unable to solve this. The solution is copied. My original solution is
  * commented below.
