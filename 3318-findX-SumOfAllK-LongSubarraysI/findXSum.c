@@ -86,6 +86,7 @@ int heap_sum_max_k(Heap heap, int k) {
     sum += maxElement.value;
     k--;
   }
+  // TODO:
 }
 
 void heap_float(Heap heap, int index) {
